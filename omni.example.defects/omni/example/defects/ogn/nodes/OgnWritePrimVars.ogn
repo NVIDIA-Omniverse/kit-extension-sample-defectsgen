@@ -1,0 +1,38 @@
+{
+    "WritePrimVars": {
+        "version": 1,
+        "description": "Write Primvars to target mesh based on the decal proxy",
+        "language": "Python",
+        "metadata": {
+            "uiName": "WritePrimVars"
+        },
+        "inputs": {
+            "proxy_path": {
+                "type": "string",
+                "description": "Path of the Proxy object",
+                "metadata": {
+                    "uiName": "proxy_path"
+                },
+                "default": ""
+            },
+            "target_path": {
+                "type": "string",
+                "description": "Path of the Target objects that contains the primvars ",
+                "default": "",
+                "metadata": {
+                    "uiName": "target_path"
+                }
+            },
+            "execIn": {
+                "description": ["exec"],
+                "type": "execution"
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "description": ["exec"],
+                "type": "execution"
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "SetSemanticBoxTransform": {
+        "version": 1,
+        "description": "Takes in a position, rotation, and scale values to effect a semantic cube in the scene",
+        "language": "Python",
+        "metadata": {
+            "uiName": "Set Semantic Box Transform"
+        },
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "",
+                "default": 0,
+                "metadata": {}
+            },
+            "position": {
+                "type": "vectord[3]",
+                "description": "",
+                "metadata": {},
+                "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            },
+            "proxy_path": {
+                "type": "string",
+                "description": "",
+                "default": ""
+            },
+            "prim_path": {
+                "type": "string",
+                "description": "",
+                "default": ""
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": ""
+            }
+        }
+    }
+}
