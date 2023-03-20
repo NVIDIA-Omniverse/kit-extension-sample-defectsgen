@@ -1,70 +1,50 @@
-# Defects Sample Extension (omni.sample.defects)
-![Defects Preview](../data/preview.png)
+# Defect Extension Sample
+
+![Defect Preview](exts/omni.example.defects/data/preview.PNG)
+
+### About
+
+This extension allows user's to generate a single defect on a target prim using images to project the defect onto the prim. Using Replicator's API the user can generate thousands of synthetic data to specify the dimensions, rotation, and position of the defect.
 
 
-## Overview
+### [README](exts/omni.example.defects)
+See the [README for this extension](exts/omni.example.defects) to learn more about it including how to use it.
 
-The Defects Sample Extension allows users to choose a texture, that represents a defect, to apply to a [Prim](https://docs.omniverse.nvidia.com/prod_usd/prod_usd/quick-start/prims.html) and generate synthetic data of the position, rotation, and dimensions of that texture.
+## Adding This Extension
 
-This Sample Extension utilizes Omniverse's [Replicator](https://developer.nvidia.com/omniverse/replicator) functionality for randomizing and generating synthetic data.
+This folder is ready to be pushed to any git repository. Once pushed direct link to a git repository can be added to *Omniverse Kit* extension search paths.
 
-## UI Overview
+Link might look like this: `git://github.com/NVIDIA-Omniverse/kit-extension-sample-defects?branch=main&dir=exts`
 
-### Object Parameters
+Notice `exts` is repo subfolder with extensions. More information can be found in "Git URL as Extension Search Paths" section of developers manual.
 
-![Object Params](../data/objparam.png)
+To add a link to your *Omniverse Kit* based app go into: Extension Manager -> Gear Icon -> Extension Search Path
 
-1. Target Prim
-    - This defines what prim the material to apply to. To get the prim path, **select** a prim in the scene then hit the **Copy button**
-2. Apply
-    - Once you have a Target Prim selected and Copied it's path, hitting Apply will bring in the proxy, decal material and create the primvar's on the Target Prim.
 
-### Defect Parameters
+## Linking with an Omniverse app
 
-![Defect Params](../data/defectparam.png)
+If `app` folder link doesn't exist or broken it can be created again. For better developer experience it is recommended to create a folder link named `app` to the *Omniverse Kit* app installed from *Omniverse Launcher*. Convenience script to use is included.
 
-Randomizations are based on Replicator's [Distributions](https://docs.omniverse.nvidia.com/prod_extensions/prod_extensions/ext_replicator/distribution_examples.html)
+Run:
 
-1. Defect Semantic
-    - The semantic label that will be used to represent the defect in the output file produced by Replicator.
-    - Default Value: `defect`
-2. Defect Texture
-    - A folder location that holds all the texture(s) to choose from. Textures should be in PNG format.
-    - Default Value: `None`
-    - Defect textures are a normal map representation of the defect. Example shown below:
-    - ![texture_sample](../omni/example/defects/data/scratch_0.png)
-3. Defect Dimensions (Width and Length)
-    - Replicator will choose random values between the Min and Max defined (cms) for the Width and Length.
-    - Default Value Min: `0`
-    - Default Value Max: `1`
-4. Define Defect Region
-    - This will create a Plane Prim, this is used as a reference to define a region in which the defect can be in.
-    - Default Value: `None`
-5. Defect Rotation
-    - Replicator will choose random values between the Min and Max defined (cms) and will set that rotation.
-    - Default Value Min: `0`
-    - Default Value Max: `1`
+```
+> link_app.bat
+```
 
-A recommended set of values using the CarDefectPanel scene is the following:
- - Defect Semantics: Scratch
- - Defect Texture: [Path to Scratchs in nucleus]
- - Defect Dimensions Width: Min 0.01 Max 0.02
- - Defect Dimensions Length: Min 0.015 Max 0.02
- - Define Defect Region: *None*
- - Defect Rotation: Min 0 Max 360
+If successful you should see `app` folder link in the root of this repo.
 
-### Replicator Parameters
+If multiple Omniverse apps is installed script will select recommended one. Or you can explicitly pass an app:
 
-![Rep Params](../data/repparam.png)
+```
+> link_app.bat --app create
+```
 
-1. Output Directory
-    - Defines the location in which Replicator will use to output data. By default it will be `DRIVE/Users/USER/omni.replicator_out`
-2. [Render Subframe](https://docs.omniverse.nvidia.com/prod_extensions/prod_extensions/ext_replicator/subframes_examples.html) Count
-    - If rendering in RTX Realtime mode, specifies the number of subframes to render in order to reduce artifacts caused by large changes in the scene.
-3. Create Replicator Layer
-    - Generates the [OmniGraph](https://docs.omniverse.nvidia.com/prod_extensions/prod_extensions/ext_omnigraph.html) or Omni.Replicator graph architecture, if changes are made the user can click this button to reflect changes. This does not run the actual execution or logic.
-4. Preview / Run for X frames
-    - **Preview** performs a single iteration of randomizations and prevents data from being written to disk.
-    - **Run for**  will run the generation for a specified amount of frames. Each frame will be one data file so 100 frames will produce 100 images/json/npy files.
+You can also just pass a path to create link to:
 
-![scratch](../data/scratch.gif)
+```
+> link_app.bat --path "C:/Users/bob/AppData/Local/ov/pkg/create-2021.3.4"
+```
+
+
+# Contributing
+The source code for this repository is provided as-is and we are not accepting outside contributions.
