@@ -70,8 +70,11 @@ class DefectsWindow(ui.Window):
         
         def run_replicator():
             total_frames = self.frames.get_value_as_int()
+            subframes = self.rt_subframes.get_value_as_int()
+            if subframes <= 0:
+                subframes = 0
             if total_frames > 0:
-                create_defect_layer(self.defect_params, self.object_params, total_frames, self.output_dir.directory)
+                create_defect_layer(self.defect_params, self.object_params, total_frames, self.output_dir.directory, subframes)
                 self.rep_layer_button.text = "Recreate Replicator Graph"
                 rep_run()
             else:
