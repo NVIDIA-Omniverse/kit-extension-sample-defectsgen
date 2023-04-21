@@ -102,14 +102,15 @@ def stitch_nodes(decal_trans_node, prim_vars_node, raycast_node, semanticbox_nod
     get_prim_proxy_node = scatter_node.get_attribute('inputs:execIn').get_upstream_connections()[0].get_node()
     og.Controller.disconnect(trigger_execOut, get_target_prim_node.get_attribute('inputs:execIn'), True)
     og.Controller.disconnect(get_prim_proxy_node.get_attribute('outputs:execOut'), scatter_node.get_attribute('inputs:execIn'), True)
+    
     write_node = get_prim_proxy_node.get_attribute('outputs:execOut').get_downstream_connections()[0].get_node()
-    og.Controller.disconnect(get_prim_proxy_node.get_attribute('outputs:execOut'), write_node.get_attribute('inputs:execIn'),True)
+    og.Controller.disconnect(get_prim_proxy_node.get_attribute('outputs:execOut'), write_node.get_attribute('inputs:exec'),True)
     og.Controller.connect(get_prim_proxy_node.get_attribute('outputs:execOut'), get_target_prim_node.get_attribute('inputs:execIn'), True)
     og.Controller.connect(get_target_prim_node.get_attribute('outputs:execOut'), scatter_node.get_attribute('inputs:execIn'), True)
-    og.Controller.connect(scatter_node.get_attribute('outputs:execOut'), write_node.get_attribute('inputs:execIn'), True)
+    og.Controller.connect(scatter_node.get_attribute('outputs:execOut'), write_node.get_attribute('inputs:exec'), True)
 
     # Get to the end execution of translating the proxy
-    current_node = write_node.get_attribute('outputs:execOut').get_downstream_connections()[0].get_node()
+    current_node = write_node.get_attribute('outputs:exec').get_downstream_connections()[0].get_node()
     while len(current_node.get_attribute('outputs:execOut').get_downstream_connections()) > 0:
         current_node = current_node.get_attribute('outputs:execOut').get_downstream_connections()[0].get_node()
     

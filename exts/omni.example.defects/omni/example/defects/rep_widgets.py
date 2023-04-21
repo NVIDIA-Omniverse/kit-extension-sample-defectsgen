@@ -26,7 +26,8 @@ class DefectParameters:
         self.semantic_label = ui.SimpleStringModel("defect")
         self._build_semantic_label()
         self.defect_text = CustomDirectory("Defect Texture", 
-                                           tooltip="A folder location containing a single or set of textures (.png)")
+                                           tooltip="A folder location containing a single or set of textures (.png)",
+                                           file_types=[("*.png", "PNG"), ("*", "All Files")])
         self.dim_w = MinMaxWidget("Defect Dimensions Width",
                                   tooltip="Defining the Minimum and Maximum Width of the Defect")
         self.dim_h = MinMaxWidget("Defect Dimensions Length",

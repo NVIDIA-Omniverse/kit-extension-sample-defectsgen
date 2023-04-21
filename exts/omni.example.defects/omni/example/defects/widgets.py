@@ -20,9 +20,10 @@ import carb
 import omni.usd
 
 class CustomDirectory:
-    def __init__(self, label: str, tooltip: str = "") -> None:
+    def __init__(self, label: str, tooltip: str = "", file_types: List[str] = None) -> None:
         self._label_text = label
         self._tooltip = tooltip
+        self._file_types = file_types
         self._dir = ui.SimpleStringModel()
         self._build_directory()
 
@@ -45,7 +46,12 @@ class CustomDirectory:
         file_importer = get_file_importer()
         if not file_importer:
             carb.log_warning("Unable to get file importer")
-        file_importer.show_window(title="Select Folder", import_button_label="Import Directory", import_handler=self.import_handler)
+        file_importer.show_window(title="Select Folder", 
+                                  import_button_label="Import Directory", 
+                                  import_handler=self.import_handler, 
+                                  file_extension_types=self._file_types
+                                  )
+
 
     def import_handler(self, filename: str, dirname: str, selections: List[str] = []):
         self._dir.set_value(dirname)

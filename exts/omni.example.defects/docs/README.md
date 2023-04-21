@@ -15,9 +15,9 @@ This Sample Extension utilizes Omniverse's [Replicator](https://developer.nvidia
 ![Object Params](../data/objparam.png)
 
 1. Target Prim
-    - This defines what prim to apply the material to. To get the prim path, **select** a prim in the scene then hit the **Copy button**
+    - This defines what prim the material to apply to. To get the prim path, **select** a prim in the scene then hit the **Copy button**
 2. Apply
-    - Once you have a Target Prim selected and Copied its path, hitting Apply will bring in the proxy decal material and create the primvar's on the Target Prim.
+    - Once you have a Target Prim selected and Copied it's path, hitting Apply will bring in the proxy, decal material and create the primvar's on the Target Prim.
 
 ### Defect Parameters
 

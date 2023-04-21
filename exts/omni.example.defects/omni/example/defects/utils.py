@@ -75,7 +75,7 @@ def get_prim(prim_path: str):
 
 def realign_prim_to_target(target_path, prim_path):
     position = get_prim_attr(target_path, 'xformOp:translate')
-    rotation = get_prim_attr(target_path, 'xformOp:rotateXYZ')
+    rotation = get_prim_attr(target_path, 'xformOp:rotateXYZ') or Gf.Vec3d(0,0,0)
     set_prim_attr(prim_path, 'xformOp:translate', position)
     set_prim_attr(prim_path, 'xformOp:rotateXYZ', rotation)
     proxy_world_trans = omni.usd.get_world_transform_matrix(get_current_stage().GetPrimAtPath(prim_path))
@@ -89,7 +89,7 @@ def look_at(target_path, prim_path):
     forward = Gf.Vec3d(1.0,0.0,0.0)
     target = get_prim_attr(target_path, 'xformOp:translate')
     start = get_prim_attr(prim_path, 'xformOp:translate')
-    direction = target - start
+    direction = Gf.Vec3d(target) - start
     rotation = Gf.Rotation(forward, direction)
     decomposed = rotation.Decompose(Gf.Vec3d.ZAxis(), Gf.Vec3d.YAxis(), Gf.Vec3d.XAxis())
     rotateXYZ = (decomposed[2], decomposed[1], decomposed[0])
