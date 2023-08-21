@@ -7,6 +7,11 @@
 This extension allows user's to generate a single defect on a target prim using images to project the defect onto the prim. Using Replicator's API the user can generate thousands of synthetic data to specify the dimensions, rotation, and position of the defect.
 
 
+### Pre-req
+
+This extension has been tested to work with Omniverse Code 2022.3.3 or higher.
+
+
 ### [README](exts/omni.example.defects)
 See the [README for this extension](exts/omni.example.defects) to learn more about it including how to use it.
 
