@@ -25,8 +25,3 @@ default_defect_main = {
     }
 }
 
-surface_comp_style = {
-    "Label": {
-        "margin_height": 4.25
-    }
-}

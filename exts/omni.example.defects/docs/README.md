@@ -31,8 +31,13 @@ Randomizations are based on Replicator's [Distributions](https://docs.omniverse.
 2. Defect Texture
     - A folder location that holds all the texture(s) to choose from. Textures should be in PNG format.
     - Default Value: `None`
-    - Defect textures are a normal map representation of the defect. Example shown below:
-    - ![texture_sample](../omni/example/defects/data/scratch_0.png)
+    - Defect textures are composed of a Diffuse, Normal, and Roughness texture to represent the defect. Example shown below:
+
+    Diffuse Texture |  Normal Texture | Roughness Texture
+    :-------------------------:|:-------------------------:|:-------------------------:
+    ![](../omni/example/defects/data/scratches/scratch_0_D.png)  |  ![](../omni/example/defects/data/scratches/scratch_0_N.png) | ![](../omni/example/defects/data/scratches/scratch_0_R.png)
+
+
 3. Defect Dimensions (Width and Length)
     - Replicator will choose random values between the Min and Max defined (cms) for the Width and Length.
     - Default Value Min: `0`

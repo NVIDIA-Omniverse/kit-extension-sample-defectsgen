@@ -15,13 +15,13 @@
 
 import carb
 import omni.ui as ui
-from functools import partial
 from omni.ui import DockPreference
 from .style import *
 from .widgets import CustomDirectory
 from .replicator_defect import create_defect_layer, rep_preview, does_defect_layer_exist, rep_run, get_defect_layer
 from .rep_widgets import DefectParameters, ObjectParameters
 from .utils import *
+from pathlib import Path
 
 class DefectsWindow(ui.Window):
     def __init__(self, title: str, dockPreference: DockPreference = DockPreference.DISABLED, **kwargs) -> None:
@@ -33,7 +33,7 @@ class DefectsWindow(ui.Window):
         self.defect_params = None
         self.object_params = None
         self.output_dir = None
-
+        self.frame_change = None
         self.frame.set_build_fn(self._build_frame)
 
     def _build_collapse_base(self, label: str, collapsed: bool = False):
@@ -68,26 +68,34 @@ class DefectsWindow(ui.Window):
                 create_defect_layer(self.defect_params, self.object_params)
                 self.rep_layer_button.text = "Recreate Replicator Graph"
         
+        def remove_replicator_graph():
+            if get_defect_layer() is not None:
+                layer, pos = get_defect_layer()
+                omni.kit.commands.execute('RemoveSublayer',
+                    layer_identifier=layer.identifier,
+                    sublayer_position=pos)
+                if is_valid_prim('/World/Looks/ProjectPBRMaterial'):
+                    delete_prim('/World/Looks/ProjectPBRMaterial')
+                if is_valid_prim(self.object_params.target_prim.path_value + "/Projection"):
+                    delete_prim(self.object_params.target_prim.path_value + "/Projection")
+            if is_valid_prim('/Replicator'):
+                delete_prim('/Replicator')
+
         def run_replicator():
+            remove_replicator_graph()
             total_frames = self.frames.get_value_as_int()
             subframes = self.rt_subframes.get_value_as_int()
             if subframes <= 0:
                 subframes = 0
             if total_frames > 0:
-                create_defect_layer(self.defect_params, self.object_params, total_frames, self.output_dir.directory, subframes)
+                create_defect_layer(self.defect_params, self.object_params, total_frames, self.output_dir.directory, subframes, self._use_seg.as_bool, self._use_bb.as_bool)
                 self.rep_layer_button.text = "Recreate Replicator Graph"
                 rep_run()
             else:
                 carb.log_error(f"Number of frames is {total_frames}. Input value needs to be greater than 0.")
         
         def create_replicator_graph():
-            if get_defect_layer() is not None:
-                layer, pos = get_defect_layer()
-                omni.kit.commands.execute('RemoveSublayer',
-                    layer_identifier=layer.identifier,
-                    sublayer_position=pos)
-            if is_valid_prim('/Replicator'):
-                delete_prim('/Replicator')
+            remove_replicator_graph()
             create_defect_layer(self.defect_params, self.object_params)
             self.rep_layer_button.text = "Recreate Replicator Graph"
 
@@ -95,7 +103,17 @@ class DefectsWindow(ui.Window):
             label.text = model.as_string
 
         with self._build_collapse_base("Replicator Parameters"):
-            self.output_dir = CustomDirectory("Output Directory", tooltip="Directory to specify where the output files will be stored. Default is [DRIVE/Users/USER/omni.replicator_out]")
+            home_dir = Path.home()
+            valid_out_dir = home_dir / "omni.replicator_out"
+            self.output_dir = CustomDirectory("Output Directory", default_dir=str(valid_out_dir.as_posix()), tooltip="Directory to specify where the output files will be stored. Default is [DRIVE/Users/USER/omni.replicator_out]")
+            with ui.HStack(height=0, tooltip="Check off which annotator you want to use; You can also use both"):
+                ui.Label("Annotations: ", width=0)
+                ui.Spacer()
+                ui.Label("Segmentation", width=0)
+                self._use_seg = ui.CheckBox().model
+                ui.Label("Bounding Box", width=0)
+                self._use_bb = ui.CheckBox().model
+                ui.Spacer()
             with ui.HStack(height=0):
                 ui.Label("Render Subframe Count: ", width=0,
                          tooltip="Defines how many subframes of rendering occur before going to the next frame")

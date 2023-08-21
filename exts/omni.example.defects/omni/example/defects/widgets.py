@@ -20,11 +20,11 @@ import carb
 import omni.usd
 
 class CustomDirectory:
-    def __init__(self, label: str, tooltip: str = "", file_types: List[str] = None) -> None:
+    def __init__(self, label: str, tooltip: str = "", default_dir: str = "", file_types: List[str] = None) -> None:
         self._label_text = label
         self._tooltip = tooltip
         self._file_types = file_types
-        self._dir = ui.SimpleStringModel()
+        self._dir = ui.SimpleStringModel(default_dir)
         self._build_directory()
 
     @property

@@ -1,6 +1,6 @@
 [package]
 # Semantic Versionning is used: https://semver.org/
-version = "1.0.1"
+version = "1.1.0"
 
 # The title and description fields are primarily for displaying extension info in UI
 title = "Defects Generation Sample"
@@ -21,10 +21,6 @@ category = "Example"
 # Keywords for the extension
 keywords = ["kit", "omnigraph", "replicator", "defect", "material"]
 
-# Watch the .ogn files for hot reloading (only works for Python files)
-[fswatcher.patterns]
-include = ["*.ogn", "*.py"]
-exclude = ["Ogn*Database.py"]
 
 # Use omni.ui to build simple UI
 [dependencies]
@@ -32,12 +28,9 @@ exclude = ["Ogn*Database.py"]
 "omni.ui" = {}
 "omni.replicator.core" = {}
 "omni.kit.window.file_importer" = {}
-"omni.physx" = {}
-"omni.physx.graph" = {}
-"omni.kit.test" = {}
-"omni.graph" = {}
 "omni.kit.commands" = {}
 "omni.usd" = {}
+"omni.kit.notification_manager" = {}
 
 
 # Main python module this extension provides, it will be publicly available as "import omni.code.snippets".
