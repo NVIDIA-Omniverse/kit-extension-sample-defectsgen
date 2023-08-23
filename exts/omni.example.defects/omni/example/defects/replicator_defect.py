@@ -114,7 +114,7 @@ def create_defect_layer(defect_params: DefectParameters, object_params: ObjectPa
 
         # Initialize and attach writer
         writer = rep.WriterRegistry.get("BasicWriter")
-        writer.initialize(output_dir=output_dir, rgb=True, semantic_segmentation=use_seg, bounding_box_2d_loose=use_bb)
+        writer.initialize(output_dir=output_dir, rgb=True, semantic_segmentation=use_seg, bounding_box_2d_tight=use_bb)
         # Attach render_product to the writer
         writer.attach([render_product])
 

@@ -28,9 +28,10 @@ Randomizations are based on Replicator's [Distributions](https://docs.omniverse.
 1. Defect Semantic
     - The semantic label that will be used to represent the defect in the output file produced by Replicator.
     - Default Value: `defect`
-2. Defect Texture
+2. Defect Texture Folder
     - A folder location that holds all the texture(s) to choose from. Textures should be in PNG format.
-    - Default Value: `None`
+    - Default Value: data folder within the Defect Extension
+
     - Defect textures are composed of a Diffuse, Normal, and Roughness texture to represent the defect. Example shown below:
 
     Diffuse Texture |  Normal Texture | Roughness Texture
@@ -38,24 +39,26 @@ Randomizations are based on Replicator's [Distributions](https://docs.omniverse.
     ![](../omni/example/defects/data/scratches/scratch_0_D.png)  |  ![](../omni/example/defects/data/scratches/scratch_0_N.png) | ![](../omni/example/defects/data/scratches/scratch_0_R.png)
 
 
-3. Defect Dimensions (Width and Length)
-    - Replicator will choose random values between the Min and Max defined (cms) for the Width and Length.
-    - Default Value Min: `0`
+3. Defect Dimensions Width
+    - Replicator will choose random values between the Min and Max defined (cms)
+    - Default Value Min: `0.1`
     - Default Value Max: `1`
-4. Define Defect Region
-    - This will create a Plane Prim, this is used as a reference to define a region in which the defect can be in.
-    - Default Value: `None`
+
+4. Defect Dimensions Length
+    - Replicator will choose random values between the Min and Max defined (cms) 
+    - Default Value Min: `0.1`
+    - Default Value Max: `1`
+
 5. Defect Rotation
     - Replicator will choose random values between the Min and Max defined (cms) and will set that rotation.
-    - Default Value Min: `0`
+    - Default Value Min: `0.1`
     - Default Value Max: `1`
 
 A recommended set of values using the CarDefectPanel scene is the following:
  - Defect Semantics: Scratch
- - Defect Texture: [Path to Scratchs in nucleus]
- - Defect Dimensions Width: Min 0.01 Max 0.02
- - Defect Dimensions Length: Min 0.015 Max 0.02
- - Define Defect Region: *None*
+ - Defect Texture: [Path to Scratchs located in Extension]
+ - Defect Dimensions Width: Min 0.1 Max 0.2
+ - Defect Dimensions Length: Min 0.15 Max 0.2
  - Defect Rotation: Min 0 Max 360
 
 ### Replicator Parameters
@@ -64,12 +67,15 @@ A recommended set of values using the CarDefectPanel scene is the following:
 
 1. Output Directory
     - Defines the location in which Replicator will use to output data. By default it will be `DRIVE/Users/USER/omni.replicator_out`
-2. [Render Subframe](https://docs.omniverse.nvidia.com/prod_extensions/prod_extensions/ext_replicator/subframes_examples.html) Count
+2. Annotations
+    - There are two types of annotations you can choose from: Segmentation and/or Bounding Box. You can select both of these. For other annotation options you will need to adjust the code inside the extension.
+3. [Render Subframe](https://docs.omniverse.nvidia.com/prod_extensions/prod_extensions/ext_replicator/subframes_examples.html) Count
     - If rendering in RTX Realtime mode, specifies the number of subframes to render in order to reduce artifacts caused by large changes in the scene.
-3. Create Replicator Layer
+4. Create Replicator Layer
     - Generates the [OmniGraph](https://docs.omniverse.nvidia.com/prod_extensions/prod_extensions/ext_omnigraph.html) or Omni.Replicator graph architecture, if changes are made the user can click this button to reflect changes. This does not run the actual execution or logic.
-4. Preview / Run for X frames
+5. Preview 
     - **Preview** performs a single iteration of randomizations and prevents data from being written to disk.
+6. Run for X frames
     - **Run for**  will run the generation for a specified amount of frames. Each frame will be one data file so 100 frames will produce 100 images/json/npy files.
 
 ![scratch](../data/scratch.gif)

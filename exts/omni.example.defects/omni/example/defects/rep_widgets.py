@@ -34,10 +34,6 @@ class DefectParameters:
                                            default_dir=str(SCRATCHES_DIR.as_posix()), 
                                            tooltip="A folder location containing a single or set of textures (.png)",
                                            file_types=[("*.png", "PNG"), ("*", "All Files")])
-        # TODO: Add this back in when new update to Replicator has been made
-        # with ui.HStack(tooltip="Defining the amount of defects to show on the prim"):
-        #     ui.Label("Defect Count")
-        #     ui.IntDrag(model=self.count)
             
         self.dim_w = MinMaxWidget("Defect Dimensions Width",
                                   min_value=0.1,
